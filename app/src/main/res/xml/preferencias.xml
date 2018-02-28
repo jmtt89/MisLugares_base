@@ -14,10 +14,12 @@
         android:checked="true"
         android:summary="Utilizar FirebaseUI en lugar de directamente el SDK"/>
 
+
     <CheckBoxPreference
         android:key="notificaciones"
         android:title="Mandar notificaciones"
         android:summary="Notificar si estamos cerca de un lugar"/>
+
 
     <EditTextPreference
         android:key="maximo"
@@ -33,6 +35,11 @@
         android:entries="@array/tiposOrden"
         android:entryValues="@array/tiposOrdenValores"
         android:defaultValue="1"/>
+
+    <CheckBoxPreference
+        android:key="activar_filtros"
+        android:title="Filtros Activados"
+        android:summary="Activa o desactiva los filtros de seleccion"/>
 
     <ListPreference
         android:key="seleccion"

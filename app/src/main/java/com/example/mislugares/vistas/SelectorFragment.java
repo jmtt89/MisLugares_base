@@ -74,16 +74,16 @@ public class SelectorFragment extends Fragment {
                             .collection("lugares")
                             //.orderBy(pref.criterioOrdenacion())
                             .limit(pref.maximoMostrar());
-            /*
-            switch (pref.criterioSeleccion()){
-                case SELECCION_MIOS:
-                    query = query.whereEqualTo("creador", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    break;
-                case SELECCION_TIPO:
-                    query = query.whereEqualTo("tipo", pref.tipoSeleccion());
-                    break;
+            if(pref.usarFiltros()){
+                switch (pref.criterioSeleccion()){
+                    case SELECCION_MIOS:
+                        query = query.whereEqualTo("creador", FirebaseAuth.getInstance().getCurrentUser().getUid());
+                        break;
+                    case SELECCION_TIPO:
+                        query = query.whereEqualTo("tipo", pref.tipoSeleccion());
+                        break;
+                }
             }
-            */
             if (pref.usarFirebaseUI()) {
                 FirestoreRecyclerOptions<Lugar> options =
                         new FirestoreRecyclerOptions.Builder<Lugar>()
@@ -98,19 +98,19 @@ public class SelectorFragment extends Fragment {
                 com.google.firebase.database.Query query = FirebaseDatabase
                         .getInstance().getReference().child("lugares")
                         .limitToLast(pref.maximoMostrar());
-                /*
-                switch (pref.criterioSeleccion()) {
-                    case SELECCION_MIOS:
-                        query = query.orderByChild("creador").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        break;
-                    case SELECCION_TIPO:
-                        query = query.orderByChild("tipo").equalTo(pref.tipoSeleccion());
-                        break;
-                    default:
-                        query = query.orderByChild(pref.criterioOrdenacion());
-                        break;
+                if(pref.usarFiltros()){
+                    switch (pref.criterioSeleccion()) {
+                        case SELECCION_MIOS:
+                            query = query.orderByChild("creador").equalTo(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            break;
+                        case SELECCION_TIPO:
+                            query = query.orderByChild("tipo").equalTo(pref.tipoSeleccion());
+                            break;
+                        default:
+                            query = query.orderByChild(pref.criterioOrdenacion());
+                            break;
+                    }
                 }
-                */
                 FirebaseRecyclerOptions<Lugar> options =
                         new FirebaseRecyclerOptions.Builder<Lugar>()
                                 .setQuery(query, Lugar.class)

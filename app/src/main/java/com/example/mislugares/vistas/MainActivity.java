@@ -1,6 +1,7 @@
 package com.example.mislugares.vistas;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -19,15 +20,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.mislugares.R;
 import com.example.mislugares.almacenamiento.Lugares;
 import com.example.mislugares.almacenamiento.LugaresAsinc;
 import com.example.mislugares.almacenamiento.LugaresFirebase;
 import com.example.mislugares.almacenamiento.LugaresFirestore;
-import com.example.mislugares.almacenamiento.LugaresVector;
 import com.example.mislugares.almacenamiento.Preferencias;
-import com.example.mislugares.modelo.Lugar;
 import com.example.mislugares.utilidades.PermisosUtilidades;
 import com.example.mislugares.vistas.detalleLugar.EdicionLugarActivity;
 import com.example.mislugares.vistas.detalleLugar.VistaLugarActivity;
@@ -36,15 +36,20 @@ import com.example.mislugares.vistas.login.LoginActivity;
 import com.example.mislugares.vistas.mapa.MapaActivity;
 import com.example.mislugares.vistas.preferencias.PreferenciasActivity;
 import com.example.mislugares.vistas.profile.ProfileActivity;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements LocationListener {
     static final int RESULTADO_PREFERENCIAS = 0;
     private static final int REQUEST_LOGIN = 69;
     private static final int SOLICITUD_PERMISO_LOCALIZACION = 0;
     private static final long DOS_MINUTOS = 2 * 60 * 1000;
+    private static final int RC_SIGN_IN = 75;
     public static LugaresAsinc lugares;
     private FirebaseAuth firebaseAuth;
     private LocationManager manejador;
@@ -92,8 +97,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onStart();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user == null) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, REQUEST_LOGIN);
+            login();
         }
     }
 
@@ -164,8 +168,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             startActivity(intent);
         }
         if (id == R.id.menu_login) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivityForResult(intent, REQUEST_LOGIN);
+            login();
         }
 
         return super.onOptionsItemSelected(item);
@@ -314,6 +317,46 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             invalidateOptionsMenu();
             if (resultCode == RESULT_CANCELED || firebaseAuth.getCurrentUser() == null) {
                 finish();
+            }
+        }else if (requestCode == RC_SIGN_IN) {
+            if (resultCode == Activity.RESULT_OK) {
+                login();
+                finish();
+            } else {
+                IdpResponse response = IdpResponse.fromResultIntent(data);
+                if (response == null) {
+                    Toast.makeText(this,"Cancelado",Toast.LENGTH_LONG).show();
+                } else if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
+                    Toast.makeText(this,"Sin conexión a Internet", Toast.LENGTH_LONG).show();
+                } else if (response.getErrorCode() == ErrorCodes.UNKNOWN_ERROR) {
+                    Toast.makeText(this,"Error desconocido",  Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+
+    private void login() {
+        FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
+        if (usuario == null) {
+            Preferencias pref = Preferencias.getInstance();
+            pref.inicializa(getApplicationContext());
+            if (pref.usarFirebaseUI()) {
+                startActivityForResult(AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(Arrays.asList(
+                                new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                new AuthUI.IdpConfig.Builder(AuthUI.PHONE_VERIFICATION_PROVIDER).build(),
+                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
+                                new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build(),
+                                new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build()))
+                        .setLogo(R.mipmap.ic_launcher)
+                        .setTheme(R.style.AppTheme)
+                        .setIsSmartLockEnabled(false)
+                        .build(), RC_SIGN_IN);
+            } else {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, REQUEST_LOGIN);
             }
         }
     }

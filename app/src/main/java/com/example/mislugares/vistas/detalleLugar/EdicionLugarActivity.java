@@ -13,6 +13,7 @@ import com.example.mislugares.R;
 import com.example.mislugares.modelo.TipoLugar;
 import com.example.mislugares.vistas.MainActivity;
 import com.example.mislugares.vistas.SelectorFragment;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 public class EdicionLugarActivity extends AppCompatActivity {
     private long id;
@@ -77,6 +78,7 @@ public class EdicionLugarActivity extends AppCompatActivity {
                 lugar.setTelefono(Integer.parseInt(telefono.getText().toString()));
                 lugar.setUrl(url.getText().toString());
                 lugar.setComentario(comentario.getText().toString());
+                lugar.setCreador(FirebaseInstanceId.getInstance().getId());
                 MainActivity.lugares.actualiza(_id, lugar);
                 finish();
                 return true;

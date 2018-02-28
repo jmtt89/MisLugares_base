@@ -15,11 +15,15 @@ public class Lugar {
     private float valoracion;
     private long n_valoraciones = 0;
     private TipoLugar tipo;
+    private String creador;
 
+    public Lugar() {
+        fecha = System.currentTimeMillis();
+        posicion = new GeoPunto(0, 0);
+        tipo = TipoLugar.OTROS;
+    }
 
-    public Lugar(String nombre, String direccion, double longitud,
-                 double latitud, int telefono, String url, String comentario,
-                 int valoracion) {
+    public Lugar(String nombre, String direccion, double longitud, double latitud, int telefono, String url, String comentario, int valoracion) {
         fecha = System.currentTimeMillis();
         posicion = new GeoPunto(longitud, latitud);
         this.nombre = nombre;
@@ -30,10 +34,19 @@ public class Lugar {
         this.valoracion = valoracion;
     }
 
-    public Lugar() {
+    /*
+     * Lugares Vector
+     */
+    public Lugar(String nombre, String direccion, double longitud, double latitud, TipoLugar tipo, int telefono, String url, String comentario, int valoracion) {
         fecha = System.currentTimeMillis();
-        posicion = new GeoPunto(0, 0);
-        tipo = TipoLugar.OTROS;
+        posicion = new GeoPunto(longitud, latitud);
+        this.nombre = nombre;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.tipo = tipo;
+        this.url = url;
+        this.comentario = comentario;
+        this.valoracion = valoracion;
     }
 
     public String getNombre() {
@@ -140,6 +153,14 @@ public class Lugar {
         this.tipo = tipo;
     }
 
+    public String getCreador() {
+        return creador;
+    }
+
+    public void setCreador(String creador) {
+        this.creador = creador;
+    }
+
     public String getTipo(){
         if (tipo == null) return null;
         else return tipo.name();
@@ -149,17 +170,5 @@ public class Lugar {
         else tipo = TipoLugar.valueOf(nombre);
     }
 
-    public Lugar(String nombre, String direccion, double longitud,
-                 double latitud, TipoLugar tipo, int telefono, String url, String comentario,
-                 int valoracion) {
-        fecha = System.currentTimeMillis();
-        posicion = new GeoPunto(longitud, latitud);
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.tipo = tipo;
-        this.url = url;
-        this.comentario = comentario;
-        this.valoracion = valoracion;
-    }
+
 }

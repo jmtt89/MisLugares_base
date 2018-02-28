@@ -26,6 +26,18 @@ public class Preferencias {
 
     public void inicializa(Context contexto) {
         pref = PreferenceManager.getDefaultSharedPreferences(contexto);
+        SharedPreferences.Editor editor = pref.edit();
+
+        editor.putBoolean("firestore", pref.getBoolean("firestore", true));
+        editor.putBoolean("firebaseUI", pref.getBoolean("firebaseUI", true));
+
+        editor.putBoolean("activar_filtros", pref.getBoolean("activar_filtros", false));
+
+        editor.putString("seleccion", pref.getString("seleccion", "0"));
+        editor.putString("tipo_seleccion", pref.getString("tipo_seleccion", "BAR"));
+        editor.putString("orden", pref.getString("orden", "valoracion"));
+        editor.putString("maximo", pref.getString("maximo", "50"));
+        editor.apply();
     }
 
     public boolean usarFirestore() {
@@ -34,6 +46,10 @@ public class Preferencias {
 
     public boolean usarFirebaseUI() {
         return (pref.getBoolean("firebaseUI", true));
+    }
+
+    public boolean usarFiltros() {
+        return (pref.getBoolean("activar_filtros", false));
     }
 
     public int criterioSeleccion() {

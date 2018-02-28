@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tiposOrden">
-        <item>Creación</item>
         <item>Valoración</item>
-        <item>Distancia</item>
+        <item>Fecha</item>
+        <item>Tipo</item>
     </string-array>
     <string-array name="tiposOrdenValores">
+        <item>valoracion</item>
+        <item>fecha</item>
+        <item>tipo</item>
+    </string-array>
+    <string-array name="tiposSeleccion">
+        <item>Todos</item>
+        <item>Creados por mi</item>
+        <item>Por tipo</item>
+    </string-array>
+    <string-array name="tiposSeleccionValores">
         <item>0</item>
         <item>1</item>
         <item>2</item>

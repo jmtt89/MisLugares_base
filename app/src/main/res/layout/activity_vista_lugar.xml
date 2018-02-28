@@ -5,7 +5,7 @@
     android:orientation="horizontal" >
     <fragment
         android:id="@+id/vista_lugar_fragment"
-        android:name="com.example.mislugares.VistaLugarFragment"
+        android:name="com.example.mislugares.vistas.detalleLugar.VistaLugarFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

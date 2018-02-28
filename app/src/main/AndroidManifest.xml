@@ -2,18 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mislugares">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
+        android:name=".MisLugares"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".vistas.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -23,17 +29,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AcercaDeActivity"
+            android:name=".vistas.AcercaDeActivity"
             android:label="Acerca de ..."
             android:theme="@android:style/Theme.Dialog" />
         <activity
-            android:name=".PreferenciasActivity"
+            android:name=".vistas.preferencias.PreferenciasActivity"
             android:label="Preferencias" />
         <activity
-            android:name=".VistaLugarActivity"
+            android:name=".vistas.detalleLugar.VistaLugarActivity"
             android:label="Vista de un lugar" />
         <activity
-            android:name=".EdicionLugarActivity"
+            android:name=".vistas.detalleLugar.EdicionLugarActivity"
             android:label="Edición de un lugar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -46,9 +52,21 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        <activity android:name=".MapaActivity"
+
+        <activity
+            android:name=".vistas.mapa.MapaActivity"
             android:label="Mapa"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.example.mislugares"
@@ -56,8 +74,49 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
+
+        <activity
+            android:name=".vistas.profile.ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".vistas.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mislugares.vistas.MainActivity" />
+        </activity>
+
+        <activity
+            android:name=".vistas.login.LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".vistas.login.PhoneAuthActivity"
+            android:parentActivityName=".vistas.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mislugares.vistas.login.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".vistas.login.PhoneValidateActivity"
+            android:parentActivityName=".vistas.login.PhoneAuthActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mislugares.vistas.login.PhoneAuthActivity" />
+        </activity>
+        <activity
+            android:name=".vistas.login.EmailAuthActivity"
+            android:label="@string/title_activity_email_auth"
+            android:parentActivityName=".vistas.login.LoginActivity"
+            android:windowSoftInputMode="adjustResize">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mislugares.vistas.login.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

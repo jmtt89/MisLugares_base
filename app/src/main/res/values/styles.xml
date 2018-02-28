@@ -8,6 +8,30 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Transparent.Button" parent="AppTheme">
+        <item name="colorAccent">#44000000</item>
+    </style>
+
+    <style name="Email.Button" parent="AppTheme">
+        <item name="colorAccent">@color/email_login_btn</item>
+    </style>
+
+    <style name="Phone.Button" parent="AppTheme">
+        <item name="colorAccent">@color/phone_login_btn</item>
+    </style>
+
+    <style name="Google.Button" parent="AppTheme">
+        <item name="colorAccent">@color/google_login_btn</item>
+    </style>
+
+    <style name="Facebook.Button" parent="AppTheme">
+        <item name="colorAccent">@color/facebook_login_btn</item>
+    </style>
+
+    <style name="Twitter.Button" parent="AppTheme">
+        <item name="colorAccent">@color/twitter_login_btn</item>
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

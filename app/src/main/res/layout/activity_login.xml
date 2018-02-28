@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ic_launcher_background"
+    android:paddingRight="12dp"
+    android:paddingLeft="12dp"
+    android:paddingBottom="8dp"
+    tools:context="com.example.mislugares.vistas.login.LoginActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:srcCompat="@drawable/ic_logo"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lineA"/>
+
+        <TextView
+            android:id="@+id/lineA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select your favorite way"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            app:layout_constraintBottom_toTopOf="@id/lineB"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse" />
+
+        <TextView
+            android:id="@+id/lineB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="to keep connected"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/lineA"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title.Inverse" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <Button
+        android:id="@+id/email_login_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/Email.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_email_24dp"
+        android:text="Email" />
+
+    <Button
+        android:id="@+id/phone_login_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/Phone.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_local_phone_24dp"
+        android:text="Phone" />
+
+    <Button
+        android:id="@+id/aux_google_login_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/Google.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_google"
+        android:text="Google"  />
+
+    <Button
+        android:id="@+id/aux_facebook_login_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/Facebook.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_facebook"
+        android:text="Facebook"  />
+
+    <Button
+        android:id="@+id/aux_twitter_login_button"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:theme="@style/Twitter.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_twitter"
+        android:text="Twitter"  />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/facebook_login_button"
+        style="@style/Base.TextAppearance.AppCompat.Widget.Button.Inverse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        android:id="@+id/twitter_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/skip_authentication"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:padding="8dp"
+        android:text="Skip Authentication"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small.Inverse" />
+
+</LinearLayout>

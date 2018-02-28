@@ -22,4 +22,18 @@
         android:icon="@android:drawable/ic_menu_myplaces"
         android:orderInCategory="100"
         app:showAsAction="always"/>
+    <item
+        android:title="Perfil"
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_profile"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:title="Login"
+        android:id="@+id/menu_login"
+        android:icon="@drawable/ic_login"
+        android:orderInCategory="1"
+        app:showAsAction="ifRoom"
+        />
 </menu>

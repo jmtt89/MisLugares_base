@@ -29,7 +29,7 @@ public class Preferencias {
         SharedPreferences.Editor editor = pref.edit();
 
         editor.putBoolean("firestore", pref.getBoolean("firestore", true));
-        editor.putBoolean("firebaseUI", pref.getBoolean("firebaseUI", true));
+        editor.putBoolean("firebaseUI", pref.getBoolean("firebaseUI", false));
 
         editor.putBoolean("activar_filtros", pref.getBoolean("activar_filtros", false));
 
@@ -45,7 +45,7 @@ public class Preferencias {
     }
 
     public boolean usarFirebaseUI() {
-        return (pref.getBoolean("firebaseUI", true));
+        return (pref.getBoolean("firebaseUI", false));
     }
 
     public boolean usarFiltros() {

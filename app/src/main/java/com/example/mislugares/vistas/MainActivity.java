@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         super.onStart();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         if (user == null) {
-            login();
+            login(false);
         }
     }
 
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
             startActivity(intent);
         }
         if (id == R.id.menu_login) {
-            login();
+            login(false);
         }
 
         return super.onOptionsItemSelected(item);
@@ -316,14 +316,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         } else if (requestCode == REQUEST_LOGIN) {
             invalidateOptionsMenu();
             if (resultCode == RESULT_CANCELED || firebaseAuth.getCurrentUser() == null) {
-                finish();
+                login(true);
             }
         }else if (requestCode == RC_SIGN_IN) {
-            if (resultCode == Activity.RESULT_OK) {
-                login();
-                finish();
-            } else {
-                IdpResponse response = IdpResponse.fromResultIntent(data);
+            invalidateOptionsMenu();
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if (resultCode != RESULT_OK) {
                 if (response == null) {
                     Toast.makeText(this,"Cancelado",Toast.LENGTH_LONG).show();
                 } else if (response.getErrorCode() == ErrorCodes.NO_NETWORK) {
@@ -336,12 +334,12 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
     }
 
 
-    private void login() {
+    private void login(boolean forecePrebuild) {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-        if (usuario == null) {
+        if (usuario == null || usuario.isAnonymous()) {
             Preferencias pref = Preferencias.getInstance();
             pref.inicializa(getApplicationContext());
-            if (pref.usarFirebaseUI()) {
+            if (forecePrebuild || pref.usarFirebaseUI()) {
                 startActivityForResult(AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(Arrays.asList(
